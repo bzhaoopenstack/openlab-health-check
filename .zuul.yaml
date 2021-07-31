@@ -1,0 +1,5 @@
+- project:
+    openlab-healthy:
+      jobs:
+        - openlab-health-check-on-aarch64
+        - openlab-health-check-on-x86
