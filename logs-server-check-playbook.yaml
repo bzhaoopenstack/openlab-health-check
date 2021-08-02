@@ -1,0 +1,20 @@
+- name: Install and config apache2
+  hosts: localhost
+#  become: yes
+  tasks:
+#   - name: Add fileserver ssh key
+#     command: "ssh-add /home/XXX.pem"
+
+    - name: Remove SSH private key from disk
+      command: "shred /home/XXX.pem"
+
+    - name: Add fileserver to inventory
+      add_host:
+        name: "logs.openlabtesting.org"
+        ansible_user: "zuul"
+        zuul_fileserver_project_path: "/srv/static/logs/openlab-health-check"
+
+    - name: Add fileserver server to known hosts
+      known_hosts:
+        name: "logs.openlabtesting.org"
+        key: "|1|E+FAPf52wSkxVyw8pwG9lYJT6v4=|TrGlco19yamthQ/zviVAXvzIg2U= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEjcriEaCucbxVUvfzKidWDpPTAlXBdJyyXOsyFgiJD1EDoeiK5aeuBiV5abhKjIa+1TToOgNsJNQmLXWoMrnPg="
